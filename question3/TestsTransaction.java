@@ -14,7 +14,7 @@ public class TestsTransaction extends junit.framework.TestCase{
         System.out.println(" solde: " + g.solde());
 
         try{
-            g.debit(120);
+            g.debit(600);
             fail("une exception est attendue, voir rollbackTransaction");
         }catch(Exception e){
             assertTrue( e instanceof SoldeDebiteurException);

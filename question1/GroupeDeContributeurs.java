@@ -11,42 +11,89 @@ public class GroupeDeContributeurs extends Cotisant implements Iterable<Cotisant
   private List<Cotisant> liste;
   
   public GroupeDeContributeurs(String nomDuGroupe){
+
     super(nomDuGroupe);
-    // a completer
+
+    this.liste = new ArrayList<Cotisant>();
   }
   
   public void ajouter(Cotisant cotisant){
-    // a completer
+
+    if(!liste.contains(cotisant)){
+
+        liste.add(cotisant);
+
+        cotisant.setParent(this);
+    }
+    
   }
   
   
+
+
   public int nombreDeCotisants(){
     int nombre = 0;
-    // a completer
+    Iterator<Cotisant> iter = liste.iterator();
+     while(iter.hasNext()){     
+       Cotisant c = iter.next();
+       if(c instanceof Contributeur){
+           nombre ++;
+        }else{
+            nombre += c.nombreDeCotisants(); 
+     }
+    }    
     return nombre;
   }
   
+  
+
+
+
   public String toString(){
-    String str = new String();
-    // a completer
+
+    String str = "Les noms des cotisant: "+"\n";
+
+    for(Cotisant c:liste)
+
+      str+=c.toString()+"\n";
+  }
     return str;
   }
   
   public List<Cotisant> getChildren(){
-    return null;// a completer
+
+    return this.liste;
   }
   
-  public void debit(int somme) throws SoldeDebiteurException{
-    // a completer
+  public void debit(int somme) throws SoldeDebiteurException,RuntimeException{
+      if(somme<0)throw new RuntimeException
+        ("somme négative !!!");
+      for(Cotisant c:liste){
+                try{                             
+                    c.debit(somme); 
+                }catch
+                ( SoldeDebiteurException e){ 
+                    throw new SoldeDebiteurException(); 
+                } 
+            }
+        
   }
   
-  public void credit(int somme){
-    // a completer
+  public void credit(int somme)
+  throws RuntimeException{
+    if(somme<0)
+      throw new RuntimeException
+                     ("somme négative !!!");
+    for(Cotisant C:liste){
+      C.credit(somme);
+    }
   }
   
   public int solde(){
     int solde = 0;
-    // a completer
+    for(Cotisant C:liste){
+      solde+=C.solde();
+    }
     return solde;
   }
   

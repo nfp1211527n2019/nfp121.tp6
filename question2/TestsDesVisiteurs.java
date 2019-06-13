@@ -6,7 +6,38 @@ import question1.*;
 public class TestsDesVisiteurs extends junit.framework.TestCase{
 
     public void testACompleter(){
-        fail(" cette méthode de tests, est à compléter, appels des trois visiteurs....");
+        
+        try{
+            GroupeDeContributeurs g1 = new GroupeDeContributeurs("premier");
+            GroupeDeContributeurs g2 = new GroupeDeContributeurs("deuxieme");
+            GroupeDeContributeurs g3 = new GroupeDeContributeurs("troisieme");
+            Contributeur c1 = new Contributeur("georges",100);
+            Contributeur c2 = new Contributeur("rana",200);
+            Contributeur c3 = new Contributeur("donald",300);
+            Contributeur c4 = new Contributeur("joseph",300);
+            Contributeur c5 = new Contributeur("tony",1000);
+            Contributeur c6 = new Contributeur("dina",50);
+            
+            
+            g1.ajouter(c1);g1.ajouter(c2);g1.ajouter(c3);
+            assertTrue(" Ce composite est valide, revoyez CompositeValide !!!", g1.accepter(new CompositeValide()));
+            assertFalse("Ce compsite n'est pas valide",g2.accepter(new CompositeValide()));
+            
+            
+            g3.ajouter(c1);g3.ajouter(c2);g3.ajouter(c3);g3.ajouter(c5);g3.ajouter(c6);
+            assertEquals("Debit maximal groupe3",g3.accepter(new DebitMaximal()),new Integer(50));
+            assertEquals("Debit maximal groupe2",g2.accepter(new DebitMaximal()),new Integer(100));
+
+            g2.ajouter(c1);g2.ajouter(c2);g2.ajouter(c3);
+            assertTrue(" Ce composite est sans doublon", g2.accepter(new SansDoublon()));
+            assertFalse("Ce compsite contient des doublons",g1.accepter(new SansDoublon()));
+            
+            
+           
+            
+            
+        }catch(Exception e){
+        }
     }
 
 
