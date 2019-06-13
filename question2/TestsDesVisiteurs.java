@@ -23,14 +23,15 @@ public class TestsDesVisiteurs extends junit.framework.TestCase{
             assertTrue(" Ce composite est valide, revoyez CompositeValide !!!", g1.accepter(new CompositeValide()));
             assertFalse("Ce compsite n'est pas valide",g2.accepter(new CompositeValide()));
             
+            g2.ajouter(c1);g2.ajouter(c2);g2.ajouter(c3);
+            assertFalse(" Ce composite est sans doublon", g2.accepter(new SansDoublon()));
+            assertFalse("Ce compsite contient des doublons",g1.accepter(new SansDoublon()));
             
             g3.ajouter(c1);g3.ajouter(c2);g3.ajouter(c3);g3.ajouter(c5);g3.ajouter(c6);
             assertEquals("Debit maximal groupe3",g3.accepter(new DebitMaximal()),new Integer(50));
             assertEquals("Debit maximal groupe2",g2.accepter(new DebitMaximal()),new Integer(100));
 
-            g2.ajouter(c1);g2.ajouter(c2);g2.ajouter(c3);
-            assertFalse(" Ce composite est sans doublon", g2.accepter(new SansDoublon()));
-            assertFalse("Ce compsite contient des doublons",g1.accepter(new SansDoublon()));
+            
             
             
            
