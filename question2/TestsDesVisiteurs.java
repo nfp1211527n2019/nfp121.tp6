@@ -29,7 +29,7 @@ public class TestsDesVisiteurs extends junit.framework.TestCase{
             assertEquals("Debit maximal groupe2",g2.accepter(new DebitMaximal()),new Integer(100));
 
             g2.ajouter(c1);g2.ajouter(c2);g2.ajouter(c3);
-            assertTrue(" Ce composite est sans doublon", g2.accepter(new SansDoublon()));
+            assertFalse(" Ce composite est sans doublon", g2.accepter(new SansDoublon()));
             assertFalse("Ce compsite contient des doublons",g1.accepter(new SansDoublon()));
             
             
